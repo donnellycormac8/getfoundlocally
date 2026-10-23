@@ -267,15 +267,15 @@ footer{padding-block:28px 96px;font-size:14px;color:var(--ink-soft)}
     <p class="sub">Two fields. We find your listing, compare it with the top <span class="tw">roofer</span> near you, and send the report within 48 hours.</p>
     <form id="checkForm" novalidate>
       <label for="biz">Business name<input id="biz" name="biz" type="text" autocomplete="organization" placeholder="e.g. Murphy Roofing, Drogheda"></label>
-      <label for="contact">Mobile or email<input id="contact" name="contact" type="text" autocomplete="tel" placeholder="Where should we send it?"></label>
+      <label for="contact">Email (or mobile if you’d rather)<input id="contact" name="contact" type="text" autocomplete="email" placeholder="Where should we send it?"></label>
+      <input type="text" name="_honey" id="honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
       <label class="full consent" for="consent"><input id="consent" type="checkbox">I’m happy to get my free report and hear about the offer above. I can say stop at any time.</label>
       <div class="full err" id="err" role="alert"></div>
       <div class="full"><button class="btn" type="submit">Send me my free report</button></div>
     </form>
     <div class="thanks" id="thanks" hidden tabindex="-1">
       <b>Got it. Your report is on its way.</b>
-      Expect it by <span id="due">Sunday</span>, sent to the mobile or email you gave. It will come from Get Found Locally, so look out for it.
-      <p class="cap" style="color:inherit;opacity:.7;margin-top:10px">Preview note: this copy of the page doesn’t send anything yet.</p>
+      Expect it by <span id="due">Sunday</span>, sent to the email or mobile you gave. It will come from getfoundlocallyie@gmail.com, so look out for it.
     </div>
   </div>
 </section>
@@ -305,10 +305,22 @@ footer{padding-block:28px 96px;font-size:14px;color:var(--ink-soft)}
     if(!biz){err.textContent='Add your business name so we can find your Google listing.';document.getElementById('biz').focus();return;}
     if(!c){err.textContent='Add a mobile number or email so we can send your report.';document.getElementById('contact').focus();return;}
     if(!document.getElementById('consent').checked){err.textContent='Tick the box so we’re allowed to send you the report.';return;}
+    if(document.getElementById('honey').value){return;}
     err.textContent='';
-    form.hidden=true;
-    var th=document.getElementById('thanks'); th.hidden=false; th.focus();
-    document.getElementById('thumb').classList.add('away');
+    var btn=form.querySelector('button'); btn.disabled=true; btn.textContent='Sending…';
+    var payload={'Business name':biz,'Email or mobile':c,'Trade (from ad link)':key||'not set','Consent to contact':'Yes','Page':location.href,_subject:'New free check request: '+biz,_template:'table',_captcha:'false'};
+    function done(){
+      form.hidden=true;
+      var th=document.getElementById('thanks'); th.hidden=false; th.focus();
+      document.getElementById('thumb').classList.add('away');
+    }
+    function fail(){
+      btn.disabled=false; btn.textContent='Send me my free report';
+      err.textContent='That didn’t send. Please try again, or email your business name to getfoundlocallyie@gmail.com.';
+    }
+    fetch('https://formsubmit.co/ajax/getfoundlocallyie@gmail.com',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(payload)})
+      .then(function(r){return r.json().catch(function(){return {};}).then(function(j){ if(r.ok && String(j.success)!=='false'){done();} else {fail();} });})
+      .catch(fail);
   });
   ['biz','contact','consent'].forEach(function(id){document.getElementById(id).addEventListener('input',function(){err.textContent='';});});
 
