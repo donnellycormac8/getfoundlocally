@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en-IE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Get Found Locally</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Free Google profile check for trades in Drogheda, Louth and East Meath. One price, no contract, see every change before you pay.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800;900&family=Instrument+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: a trades-van side panel. Short signwritten headings, a hi-vis chevron band, a job-docket price card, hi-vis buttons everywhere, a sticky thumb bar on phones. */
+:root{
+  --paper:#F6F6F2; --ink:#18212E; --ink-soft:#4A5463; --line:#D9DBD3;
+  --hivis:#F3D21F; --hivis-ink:#211B00; --carbon:#2747A8; --card:#FFFFFF; --good:#1E7A4F; --warn:#B4441C;
+  --f-display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
+  --f-body:"Instrument Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#11161E; --ink:#ECEEF1; --ink-soft:#A6AFBC; --line:#2A323E;
+  --hivis:#F3D21F; --hivis-ink:#211B00; --carbon:#8FA8F5; --card:#1A212B; --good:#5CC995; --warn:#F08A5D; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#11161E; --ink:#ECEEF1; --ink-soft:#A6AFBC; --line:#2A323E;
+  --hivis:#F3D21F; --hivis-ink:#211B00; --carbon:#8FA8F5; --card:#1A212B; --good:#5CC995; --warn:#F08A5D; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.6;margin:0;font-variant-numeric:tabular-nums}
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2{font-family:var(--f-display);font-weight:900;text-transform:uppercase;letter-spacing:.01em;line-height:.95;text-wrap:balance;margin:0}
+h1{font-size:clamp(52px,10vw,112px)}
+h2{font-size:clamp(34px,5vw,54px)}
+h3{font-size:19px;margin:0 0 6px;font-weight:600}
+p{margin:0}
+a{color:var(--carbon)}
+.eyebrow{font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--hivis);color:var(--hivis-ink);font-weight:600;text-decoration:none;padding:15px 22px;border-radius:6px;border:2px solid var(--hivis-ink);font-size:17px;font-family:var(--f-body);cursor:pointer;min-height:52px}
+.btn:hover{filter:brightness(1.04);transform:translateY(-1px)}
+.btn:focus-visible,input:focus-visible{outline:3px solid var(--carbon);outline-offset:2px}
+header.top{padding-block:16px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.mark{font-family:var(--f-display);font-weight:900;font-size:24px;text-transform:uppercase;letter-spacing:.02em}
+.mark span{background:var(--hivis);color:var(--hivis-ink);padding:0 6px;margin-left:4px}
+.top .btn{padding:10px 16px;min-height:44px;font-size:15px}
+.hero{padding-block:28px 48px;display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center}
+.hero > *{min-width:0}
+.hero .lede{font-size:20px;color:var(--ink-soft);max-width:36ch;margin-top:18px}
+.hero .lede strong{color:var(--ink);font-weight:600}
+.hero .actions{margin-top:26px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.hero .small{font-size:14px;color:var(--ink-soft)}
+.risk{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px 18px;font-size:14px;color:var(--ink-soft)}
+.risk span::before{content:"✓ ";color:var(--good);font-weight:600}
+.search{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px;display:grid;gap:12px}
+.qbar{font-size:14px;border:1px solid var(--line);border-radius:999px;padding:9px 14px;color:var(--ink-soft)}
+.res{border-top:1px solid var(--line);padding-top:12px;display:grid;gap:3px}
+.res b{font-size:16px}
+.stars{font-size:14px}
+.res.top .stars{color:var(--good)}
+.res.you{opacity:.6}
+.tag{justify-self:start;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:2px 7px;border-radius:4px;background:var(--hivis);color:var(--hivis-ink)}
+.cap{font-size:12px;color:var(--ink-soft)}
+.chev{height:28px;background:repeating-linear-gradient(-45deg,var(--hivis) 0 22px,var(--ink) 22px 44px)}
+section{padding-block:64px}
+.stat{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center}
+.stat .big{font-family:var(--f-display);font-weight:900;font-size:clamp(84px,14vw,150px);line-height:.85}
+.stat .big small{font-size:.42em;color:var(--ink-soft)}
+.stat p{font-size:19px;max-width:44ch}
+.stat .src{font-size:13px;color:var(--ink-soft);margin-top:10px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:32px}
+.steps > div{min-width:0;border-top:3px solid var(--ink);padding-top:14px}
+.steps .n{font-family:var(--f-display);font-weight:900;font-size:44px;line-height:1}
+.steps p{color:var(--ink-soft)}
+.sample{display:grid;grid-template-columns:1fr 1.1fr;gap:40px;align-items:center}
+.sample > *{min-width:0}
+.report{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:22px;font-size:15px;box-shadow:0 1px 0 var(--line)}
+.report .rh{display:flex;justify-content:space-between;gap:12px;border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:12px}
+.report .rh b{font-size:17px}
+.report table{width:100%;border-collapse:collapse}
+.report th,.report td{text-align:left;padding:7px 4px;border-bottom:1px dashed var(--line);vertical-align:top}
+.report th{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);font-weight:600}
+.report .bad{color:var(--warn);font-weight:600}
+.report .ok{color:var(--good);font-weight:600}
+.report .fix{margin-top:12px;font-size:14px;background:var(--paper);padding:10px 12px;border-radius:4px}
+.report .stamp{display:inline-block;margin-top:10px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--carbon);border:1.5px solid var(--carbon);padding:2px 8px;border-radius:3px;transform:rotate(-2deg)}
+.offer{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.offer > *{min-width:0}
+.docket{background:var(--card);border:1px solid var(--line);border-radius:4px;padding:24px;font-size:16px}
+.docket .row{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px dashed var(--line)}
+.docket .no{font-size:12px;font-weight:600;letter-spacing:.08em;color:var(--carbon);display:flex;justify-content:space-between;margin-bottom:10px}
+.anchor{margin-top:16px;font-size:15px;color:var(--ink-soft)}
+.anchor s{color:var(--ink-soft)}
+.price{font-family:var(--f-display);font-weight:900;font-size:68px;line-height:1;margin:4px 0 2px}
+.price small{font-family:var(--f-body);font-size:16px;font-weight:500;color:var(--ink-soft);margin-left:6px}
+.paylater{font-weight:600;font-size:16px;margin-top:4px}
+.found{margin-top:14px;background:var(--hivis);color:var(--hivis-ink);padding:10px 12px;border-radius:4px;font-size:15px}
+ul.ticks{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:10px}
+ul.ticks li{padding-left:28px;position:relative}
+ul.ticks li::before{content:"";position:absolute;left:0;top:7px;width:14px;height:8px;border-left:3px solid var(--good);border-bottom:3px solid var(--good);transform:rotate(-45deg)}
+.why{margin-top:22px;font-size:15px;color:var(--ink-soft);border-left:3px solid var(--hivis);padding-left:12px;border-radius:0}
+.faq{display:grid;grid-template-columns:repeat(2,1fr);gap:28px 40px;margin-top:28px}
+.faq > div{min-width:0}
+.faq p{color:var(--ink-soft)}
+.check{background:var(--ink);color:var(--paper)}
+.check .eyebrow{color:var(--hivis)}
+.check .sub{margin-top:12px;max-width:52ch;opacity:.85}
+.check form{margin-top:26px;display:grid;grid-template-columns:repeat(2,1fr);gap:16px;max-width:720px}
+.check label{display:grid;gap:6px;font-size:14px;font-weight:500}
+.check input[type=text],.check input[type=tel]{font:inherit;font-size:17px;padding:13px;border-radius:6px;border:1px solid transparent;background:var(--paper);color:var(--ink);width:100%}
+.check .full{grid-column:1/-1}
+.check .consent{display:flex;gap:10px;align-items:flex-start;font-weight:400;font-size:14px}
+.check .consent input{width:20px;height:20px;margin-top:2px;flex:none}
+.err{color:var(--hivis);font-size:14px;min-height:1.2em}
+.thanks{margin-top:22px;padding:18px;border:2px solid var(--hivis);border-radius:6px;max-width:720px}
+.thanks b{display:block;font-size:19px;margin-bottom:6px}
+footer{padding-block:28px 96px;font-size:14px;color:var(--ink-soft)}
+.thumb{display:none}
+@media (max-width:760px){
+  .hero,.offer,.faq,.sample,.stat{grid-template-columns:1fr}
+  .stat{gap:8px}
+  .steps{grid-template-columns:1fr}
+  .check form{grid-template-columns:1fr}
+  section{padding-block:48px}
+  .hero{padding-block:16px 40px}
+  .hero .lede{font-size:18px}
+  .top .btn{display:none}
+  .thumb{display:block;position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--paper);border-top:1px solid var(--line);
+    padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));transition:transform .2s}
+  .thumb .btn{width:100%}
+  .thumb.away{transform:translateY(110%)}
+}
+@media (prefers-reduced-motion:reduce){.btn:hover{transform:none}.thumb{transition:none}}
+</style>
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header class="top">
+    <div class="mark">Get Found<span>Locally</span></div>
+    <a class="btn" href="#check">Free profile check</a>
+  </header>
+
+  <div class="hero">
+    <div>
+      <p class="eyebrow">For <span class="tw-plural">trades</span> in Drogheda, Louth &amp; East Meath</p>
+      <h1>Do they find you on Google?</h1>
+      <p class="lede">When someone nearby searches <strong>“<span class="tw">roofer</span> near me”</strong>, the trades with reviews and a full profile get the call. We’ll check yours against the top <span class="tw">roofer</span> in your town and send you a one-page report. Free.</p>
+      <div class="actions">
+        <a class="btn" href="#check">Get my free check</a>
+        <span class="small">2 fields. Report within 48 hours.</span>
+      </div>
+      <div class="risk"><span>No contract</span><span>See every change before you pay</span><span>Local to Drogheda</span></div>
+    </div>
+    <div class="search" aria-label="Illustrative Google Maps search result">
+      <div class="qbar"><span class="tw">roofer</span> near me · Drogheda</div>
+      <div class="res top">
+        <span class="tag">Gets the call</span>
+        <b>Top-ranked <span class="tw">roofer</span></b>
+        <span class="stars">★★★★★ 4.9 · 70+ reviews · Open now</span>
+        <span class="cap">Photos, hours, services listed</span>
+      </div>
+      <div class="res you">
+        <b>A <span class="tw">roofer</span> with a bare listing</b>
+        <span class="stars">★★★★★ 5.0 · 3 reviews</span>
+        <span class="cap">No hours, no photos</span>
+      </div>
+      <span class="cap">Illustrative example.</span>
+    </div>
+  </div>
+</div>
+
+<div class="chev" aria-hidden="true"></div>
+
+<section>
+  <div class="wrap stat">
+    <div class="big">27<small>/48</small></div>
+    <div>
+      <p>We looked up 48 trades around Drogheda, Bettystown and Duleek on Google Maps. <strong>27 had fewer than 15 reviews.</strong> If you’re one of them, the trades with dozens of reviews are getting calls that could be yours.</p>
+      <p class="src">Our own check of Google Maps listings, October 2026.</p>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <p class="eyebrow">How it works</p>
+    <h2>Three steps. Seven days.</h2>
+    <div class="steps">
+      <div><div class="n">1</div><h3>Free check</h3><p>Send your business name. We compare your listing with the top trade near you and show you exactly what’s missing.</p></div>
+      <div><div class="n">2</div><h3>You approve it</h3><p>We prepare your new categories, services, hours, photos and description and send you a preview. Happy with it? Pay, and it goes live the same day.</p></div>
+      <div><div class="n">3</div><h3>Reviews come in</h3><p>You get a QR card for the van and a ready-made text to send after each job, so happy customers leave reviews without you chasing them.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap sample">
+    <div>
+      <p class="eyebrow">What you get free</p>
+      <h2>Your one-page report</h2>
+      <p style="margin-top:14px;color:var(--ink-soft);max-width:40ch">A side-by-side of your Google listing and the top <span class="tw">roofer</span> in your area, with the three fixes that would make the biggest difference. Yours to keep, whether you use us or not.</p>
+      <p style="margin-top:22px"><a class="btn" href="#check">Get my free report</a></p>
+    </div>
+    <div class="report" aria-label="Sample report for a made-up business">
+      <div class="rh"><b>Oak &amp; Slate Roofing</b><span class="cap">Sample · made-up business</span></div>
+      <table>
+        <thead><tr><th></th><th>You</th><th>Top in town</th></tr></thead>
+        <tbody>
+          <tr><td>Google reviews</td><td class="bad">3</td><td class="ok">74</td></tr>
+          <tr><td>Rating</td><td>5.0</td><td>4.9</td></tr>
+          <tr><td>Opening hours</td><td class="bad">Missing</td><td class="ok">Listed</td></tr>
+          <tr><td>Photos of work</td><td class="bad">0</td><td class="ok">38</td></tr>
+          <tr><td>Services listed</td><td class="bad">None</td><td class="ok">9</td></tr>
+        </tbody>
+      </table>
+      <div class="fix"><b>Top 3 fixes:</b> add opening hours · upload 10 job photos · ask your last 10 customers for a review</div>
+      <span class="stamp">Free check</span>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap offer">
+    <div>
+      <p class="eyebrow">If you want us to fix it</p>
+      <h2>One price. No contract.</h2>
+      <ul class="ticks">
+        <li>Google profile set up or fixed, properly</li>
+        <li>Review kit: QR card for the van and a text message template</li>
+        <li>Your preview ready within 7 days</li>
+        <li>See every change before you pay. Pay, and it goes live the same day</li>
+        <li>No monthly fee, no 12-month lock-in, no paid leads</li>
+      </ul>
+      <p class="why">Google says the number of reviews, your rating and having complete, accurate details all affect where you show up in local results. <a href="https://support.google.com/business/answer/7091?hl=en" target="_blank" rel="noopener">Google’s own guide</a></p>
+    </div>
+    <div class="docket" aria-label="Price">
+      <div class="no"><span>JOB DOCKET</span><span>No. 0001</span></div>
+      <div class="row"><span>Profile setup &amp; fix</span><span>Included</span></div>
+      <div class="row"><span>Review kit + QR card</span><span>Included</span></div>
+      <div class="row"><span>Preview before you pay</span><span>Included</span></div>
+      <p class="anchor">Dublin agency price guides list <s>€250–650</s> for profile setup alone.</p>
+      <div class="price">€149<small>one-off</small></div>
+      <p class="paylater">Due when you approve your preview. Live the same day.</p>
+      <div class="found">Founding offer: the first 3 trades pay €99 in return for an honest review of our service.</div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <p class="eyebrow">Questions</p>
+    <h2>Fair questions</h2>
+    <div class="faq">
+      <div><h3>Do I need a website?</h3><p>No. For most trades, a strong Google listing with reviews does more than a website.</p></div>
+      <div><h3>What do I have to do?</h3><p>Confirm a code Google sends to your phone or email, and add us as a manager on your listing. About 2 minutes. We send step-by-step instructions.</p></div>
+      <div><h3>Is there a monthly fee?</h3><p>No. You pay once, when you approve your preview. An optional upkeep plan exists if you want posts and review replies handled, but you never have to take it.</p></div>
+      <div><h3>Can you guarantee more calls?</h3><p>No one honest can. Google doesn’t let anyone pay for a better local ranking. What we guarantee is a complete, properly set-up profile and a simple way to collect reviews.</p></div>
+      <div><h3>Who’s behind this?</h3><p>A Drogheda-based business student who sets these up for local trades. Happy to meet in person.</p></div>
+      <div><h3>What happens to my details?</h3><p>We use them only to send your report and follow up about it. Say stop at any time and we won’t contact you again.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="check" id="check">
+  <div class="wrap">
+    <p class="eyebrow">Free, no obligation</p>
+    <h2>Get your free profile check</h2>
+    <p class="sub">Two fields. We find your listing, compare it with the top <span class="tw">roofer</span> near you, and send the report within 48 hours.</p>
+    <form id="checkForm" novalidate>
+      <label for="biz">Business name<input id="biz" name="biz" type="text" autocomplete="organization" placeholder="e.g. Murphy Roofing, Drogheda"></label>
+      <label for="contact">Mobile or email<input id="contact" name="contact" type="text" autocomplete="tel" placeholder="Where should we send it?"></label>
+      <label class="full consent" for="consent"><input id="consent" type="checkbox">I’m happy to get my free report and hear about the offer above. I can say stop at any time.</label>
+      <div class="full err" id="err" role="alert"></div>
+      <div class="full"><button class="btn" type="submit">Send me my free report</button></div>
+    </form>
+    <div class="thanks" id="thanks" hidden tabindex="-1">
+      <b>Got it. Your report is on its way.</b>
+      Expect it by <span id="due">Sunday</span>, sent to the mobile or email you gave. It will come from Get Found Locally, so look out for it.
+      <p class="cap" style="color:inherit;opacity:.7;margin-top:10px">Preview note: this copy of the page doesn’t send anything yet.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">Get Found Locally · Drogheda, Co. Louth · <span style="user-select:all">getfoundlocallyie@gmail.com</span> · We only use your details to send your report and follow up about it.</footer>
+
+<div class="thumb" id="thumb"><a class="btn" href="#check">Get my free check</a></div>
+
+<script>
+(function(){
+  var trades={roofer:["roofer","roofers"],plumber:["plumber","plumbers"],electrician:["electrician","electricians"],carpenter:["carpenter","carpenters"],landscaper:["landscaper","landscapers"],painter:["painter","painters"],plasterer:["plasterer","plasterers"],builder:["builder","builders"],cleaner:["cleaner","cleaners"],paving:["driveway contractor","driveway contractors"],handyman:["handyman","handymen"]};
+  var key=null;
+  try{ key=new URLSearchParams(location.search).get('t'); }catch(e){}
+  if(!key && location.hash){ var h=location.hash.slice(1).toLowerCase(); if(trades[h]) key=h; }
+  var t=trades[(key||'').toLowerCase()];
+  if(t){
+    document.querySelectorAll('.tw').forEach(function(el){el.textContent=t[0];});
+    document.querySelectorAll('.tw-plural').forEach(function(el){el.textContent=t[1];});
+  }
+  var d=new Date(); d.setDate(d.getDate()+2);
+  document.getElementById('due').textContent=d.toLocaleDateString('en-IE',{weekday:'long',day:'numeric',month:'long'});
+
+  var form=document.getElementById('checkForm'), err=document.getElementById('err');
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var biz=document.getElementById('biz').value.trim(), c=document.getElementById('contact').value.trim();
+    if(!biz){err.textContent='Add your business name so we can find your Google listing.';document.getElementById('biz').focus();return;}
+    if(!c){err.textContent='Add a mobile number or email so we can send your report.';document.getElementById('contact').focus();return;}
+    if(!document.getElementById('consent').checked){err.textContent='Tick the box so we’re allowed to send you the report.';return;}
+    err.textContent='';
+    form.hidden=true;
+    var th=document.getElementById('thanks'); th.hidden=false; th.focus();
+    document.getElementById('thumb').classList.add('away');
+  });
+  ['biz','contact','consent'].forEach(function(id){document.getElementById(id).addEventListener('input',function(){err.textContent='';});});
+
+  var thumb=document.getElementById('thumb'), check=document.getElementById('check');
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){es.forEach(function(en){thumb.classList.toggle('away',en.isIntersecting);});},{threshold:0.15}).observe(check);
+  }
+})();
+</script>
+
+</body>
+</html>
